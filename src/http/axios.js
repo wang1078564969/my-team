@@ -3,7 +3,7 @@ import qs from 'qs'
 
 // 全局配置
 axios.defaults.headers.post['Content-Type'] 	= 'application/x-www-form-urlencoded';
-axios.defaults.baseURL = 'http://120.78.164.247:9999';
+axios.defaults.baseURL = 'http://119.23.66.251:9999';
 axios.defaults.withCredentials = true;
 
 
