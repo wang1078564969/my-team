@@ -28,23 +28,23 @@
       <div class="left-nav">
         <div class="i" @click="open()"><i :class="this.class"></i></div>
         <el-menu :default-active="this.currentRoute" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="Collapse" router>
-          <el-menu-item index="/">
+          <el-menu-item index="/" @click="currentRoute='/'">
             <i class="el-icon-document"></i>
             <span slot="title">首页</span>
           </el-menu-item>
-          <el-menu-item index="/base">
+          <el-menu-item index="/base" @click="currentRoute='/base'">
             <i class="el-icon-location"></i>
             <span slot="title">基础数据</span>
           </el-menu-item>
-          <el-menu-item index="/qn">
+          <el-menu-item index="/qn" @click="currentRoute='/qn'">
             <i class="el-icon-location"></i>
             <span slot="title">问卷管理</span>
           </el-menu-item>
-          <el-menu-item index="/survey">
+          <el-menu-item index="/survey" @click="currentRoute='/survey'">
             <i class="el-icon-location"></i>
             <span slot="title">课调管理</span>
           </el-menu-item>
-          <el-menu-item index="/statistics">
+          <el-menu-item index="/statistics" @click="currentRoute='/statistics'">
             <i class="el-icon-location"></i>
             <span slot="title">课调统计</span>
           </el-menu-item>
@@ -71,10 +71,11 @@
       }
     },
     watch:{
-      //将页面路由信息记录在localStorage中
+      //将页面路由信息记录在sessionStorag中
 			currentRoute:{
 				handler: function(){
-      				localStorage.setItem("currentRoute",JSON.stringify(this.currentRoute));
+
+      		sessionStorage.setItem("currentRoute",JSON.stringify(this.currentRoute));
 				},
 				deep: true
 			}
@@ -90,8 +91,8 @@
         window.vm.currentComponent = 'Login';
       }
       */
-      //在页面加载时读取localStorage里的状态信息
-    	let currentRoute=JSON.parse(localStorage.getItem('currentRoute'));
+      //在页面加载时读取sessionStorag里的状态信息
+    	let currentRoute=JSON.parse(sessionStorage.getItem('currentRoute'));
 			this.currentRoute=currentRoute
 			if(this.currentRoute==null){
 				this.currentRoute='/'

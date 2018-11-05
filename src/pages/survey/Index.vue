@@ -18,17 +18,17 @@
 			}
 		},
 		watch:{
-			//将页面路由信息记录在localStorage中
+			//将页面路由信息记录在sessionStorage中
 			currentRoute:{
 				handler: function(){
-      				localStorage.setItem("surveycurrentRoute",JSON.stringify(this.currentRoute));
+      				sessionStorage.setItem("surveycurrentRoute",JSON.stringify(this.currentRoute));
 				},
 				deep: true
 			}
 		},
 		created(){
-			 //在页面加载时读取localStorage里的状态信息
-    		let currentRoute=JSON.parse(localStorage.getItem('surveycurrentRoute'));
+			 //在页面加载时读取sessionStorage里的状态信息
+    		let currentRoute=JSON.parse(sessionStorage.getItem('surveycurrentRoute'));
 			this.currentRoute=currentRoute
 			if(this.currentRoute==null){
 				this.currentRoute='/survey/surveyInfo'

@@ -20,17 +20,17 @@
 			}
 		},
 		watch:{
-			//将页面路由信息记录在localStorage中
+			//将页面路由信息记录在sessionStorag中
 			currentRoute:{
 				handler: function(){
-      				localStorage.setItem("basecurrentRoute",JSON.stringify(this.currentRoute));
+      				sessionStorage.setItem("basecurrentRoute",JSON.stringify(this.currentRoute));
 				},
 				deep: true
 			}
 		},
 		created(){
-			 //在页面加载时读取localStorage里的状态信息
-    		let currentRoute=JSON.parse(localStorage.getItem('basecurrentRoute'));
+			 //在页面加载时读取sessionStorag里的状态信息
+    		let currentRoute=JSON.parse(sessionStorage.getItem('basecurrentRoute'));
 			this.currentRoute=currentRoute
 			if(this.currentRoute==null){
 				this.currentRoute='/base/school'
