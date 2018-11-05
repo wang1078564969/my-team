@@ -1,16 +1,10 @@
 <template>
 	<div class="setting">
-		<ul class="setting-nav">
-			<li :class="{current:currentRoute=='/survey/surveyInfo'}">
-				<router-link to='/survey/surveyInfo'>课调管理</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/survey/surveyMonitor'}">
-				<router-link to='/survey/surveyMonitor'>课调监控</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/survey/surveyCheck'}">
-				<router-link to='/survey/surveyCheck'>课调审核</router-link>
-			</li>
-		</ul>
+		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router active-text-color="#ffd04b" >
+			<el-menu-item index="/survey/surveyInfo" @click="currentRoute='/survey/surveyInfo'">课调管理</el-menu-item>
+			<el-menu-item index="/survey/surveyMonitor" @click="currentRoute='/survey/surveyMonitor'">课调监控</el-menu-item>
+			<el-menu-item index="/survey/surveyCheck" @click="currentRoute='/survey/surveyCheck'">班级管理</el-menu-item>
+		</el-menu>
 		<div class="setting-content">
 			<router-view></router-view>
 		</div>
@@ -20,35 +14,28 @@
 	export default {
 		data(){
 			return {
-				currentRoute:'/survey/surveyInfo'
+				currentRoute:{}
 			}
 		},
 		watch:{
-			'$route':function(to,from){
-				this.currentRoute = to.path;
+			//将页面路由信息记录在localStorage中
+			currentRoute:{
+				handler: function(){
+      				localStorage.setItem("surveycurrentRoute",JSON.stringify(this.currentRoute));
+				},
+				deep: true
 			}
 		},
-		mounted(){
-			this.$router.push(this.currentRoute);
-		}
+		created(){
+			 //在页面加载时读取localStorage里的状态信息
+    		let currentRoute=JSON.parse(localStorage.getItem('surveycurrentRoute'));
+			this.currentRoute=currentRoute
+			if(this.currentRoute==null){
+				this.currentRoute='/survey/surveyInfo'
+				this.$router.push(this.currentRoute);
+			}
+		},
 	}
 </script>
 <style>
-	.setting-nav {
-		border-bottom: 1px solid #f0f0f0;
-		height: 30px;
-	}
-	
-	.setting-nav > li {
-		line-height: 30px;
-		float: left;
-		width: 120px;
-		text-align: center;
-	}
-	.setting-nav > li.current  {
-		border-bottom: 1px solid teal;
-	}
-	.setting-content {
-		padding: .5em 0;
-	}
 </style>

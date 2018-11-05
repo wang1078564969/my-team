@@ -1,13 +1,9 @@
 <template>
 	<div class="setting">
-		<ul class="setting-nav">
-			<li :class="{current:currentRoute=='/qn/question'}">
-				<router-link to='/qn/question'>题库管理</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/qn/questionNaire'}">
-				<router-link to='/qn/questionNaire'>问卷管理</router-link>
-			</li>
-		</ul>
+		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router active-text-color="#ffd04b">
+			<el-menu-item index="/qn/question" @click="currentRoute='/qn/question'">题库管理</el-menu-item>
+			<el-menu-item index="/qn/questionNaire" @click="currentRoute='/qn/questionNaire'">问卷管理</el-menu-item>
+		</el-menu>
 		<div class="setting-content">
 			<router-view></router-view>
 		</div>
@@ -17,35 +13,29 @@
 	export default {
 		data(){
 			return {
-				currentRoute:'/qn/question'
+				currentRoute:{}
 			}
 		},
 		watch:{
-			'$route':function(to,from){
-				this.currentRoute = to.path;
+			//将页面路由信息记录在localStorage中
+			currentRoute:{
+				handler: function(){
+      				localStorage.setItem("qncurrentRoute",JSON.stringify(this.currentRoute));
+				},
+				deep: true
 			}
 		},
-		mounted(){
-			this.$router.push(this.currentRoute);
-		}
+		created(){
+			 //在页面加载时读取localStorage里的状态信息
+    		let currentRoute=JSON.parse(localStorage.getItem('qncurrentRoute'));
+			this.currentRoute=currentRoute
+			if(this.currentRoute==null){
+				this.currentRoute='/qn/question'
+				this.$router.push(this.currentRoute);
+			}
+		},
 	}
 </script>
 <style>
-	.setting-nav {
-		border-bottom: 1px solid #f0f0f0;
-		height: 30px;
-	}
-	
-	.setting-nav > li {
-		line-height: 30px;
-		float: left;
-		width: 120px;
-		text-align: center;
-	}
-	.setting-nav > li.current  {
-		border-bottom: 1px solid teal;
-	}
-	.setting-content {
-		padding: .5em 0;
-	}
+
 </style>

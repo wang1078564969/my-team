@@ -27,7 +27,7 @@
       <!-- 左侧导航 -->
       <div class="left-nav">
         <div class="i" @click="open()"><i :class="this.class"></i></div>
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="Collapse" router>
+        <el-menu :default-active="this.currentRoute" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="Collapse" router>
           <el-menu-item index="/">
             <i class="el-icon-document"></i>
             <span slot="title">首页</span>
@@ -66,13 +66,18 @@
       return {
         class:'el-icon-d-arrow-right',
         Collapse:true,
-        currentRoute:'/',
+        currentRoute:{},
         user:{}
       }
     },
     watch:{
-
-
+      //将页面路由信息记录在localStorage中
+			currentRoute:{
+				handler: function(){
+      				localStorage.setItem("currentRoute",JSON.stringify(this.currentRoute));
+				},
+				deep: true
+			}
     },
     created(){
       this.currentRoute = this.$route.path;
@@ -85,6 +90,13 @@
         window.vm.currentComponent = 'Login';
       }
       */
+      //在页面加载时读取localStorage里的状态信息
+    	let currentRoute=JSON.parse(localStorage.getItem('currentRoute'));
+			this.currentRoute=currentRoute
+			if(this.currentRoute==null){
+				this.currentRoute='/'
+				this.$router.push(this.currentRoute);
+			}
     },
     methods:{
       handleCommand(command){

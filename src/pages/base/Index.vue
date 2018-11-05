@@ -1,22 +1,12 @@
 <template>
 	<div class="setting">
-		<ul class="setting-nav">
-			<li :class="{current:currentRoute=='/base/school'}">
-				<router-link to='/base/school'>校园信息</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/base/grade'}">
-				<router-link to='/base/grade'>年级管理</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/base/clazz'}">
-				<router-link to='/base/clazz'>班级管理</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/base/course'}">
-				<router-link to='/base/course'>课程管理</router-link>
-			</li>
-			<li :class="{current:currentRoute=='/base/user'}">
-				<router-link to='/base/user'>用户管理</router-link>
-			</li>
-		</ul>
+		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router active-text-color="#ffd04b" >
+			<el-menu-item index="/base/school" @click="currentRoute='/base/school'">校园信息</el-menu-item>
+			<el-menu-item index="/base/grade" @click="currentRoute='/base/grade'">年级管理</el-menu-item>
+			<el-menu-item index="/base/clazz" @click="currentRoute='/base/clazz'">班级管理</el-menu-item>
+			<el-menu-item index="/base/course" @click="currentRoute='/base/course'">课程管理</el-menu-item>
+			<el-menu-item index="/base/user" @click="currentRoute='/base/user'">用户管理</el-menu-item>
+		</el-menu>
 		<div class="setting-content">
 			<router-view></router-view>
 		</div>
@@ -26,35 +16,29 @@
 	export default {
 		data(){
 			return {
-				currentRoute:'/base/school'
+				currentRoute:{}
 			}
 		},
 		watch:{
-			'$route':function(to,from){
-				this.currentRoute = to.path;
+			//将页面路由信息记录在localStorage中
+			currentRoute:{
+				handler: function(){
+      				localStorage.setItem("basecurrentRoute",JSON.stringify(this.currentRoute));
+				},
+				deep: true
 			}
 		},
-		mounted(){
-			this.$router.push(this.currentRoute);
-		}
+		created(){
+			 //在页面加载时读取localStorage里的状态信息
+    		let currentRoute=JSON.parse(localStorage.getItem('basecurrentRoute'));
+			this.currentRoute=currentRoute
+			if(this.currentRoute==null){
+				this.currentRoute='/base/school'
+				this.$router.push(this.currentRoute);
+			}
+		},
 	}
 </script>
 <style>
-	.setting-nav {
-		border-bottom: 1px solid #f0f0f0;
-		height: 30px;
-	}
-	
-	.setting-nav > li {
-		line-height: 30px;
-		float: left;
-		width: 120px;
-		text-align: center;
-	}
-	.setting-nav > li.current  {
-		border-bottom: 1px solid teal;
-	}
-	.setting-content {
-		padding: .5em 0;
-	}
+
 </style>
