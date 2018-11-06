@@ -108,9 +108,11 @@
 	 .el-select .el-input {
     width: 130px;
   }
+  .button{
+	  margin:10px;
+  }
   .left-button{
 	  float: left;
-	  margin: 10px ;
 	  width: 500px
   }
   .right-button{
