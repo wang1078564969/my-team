@@ -1,12 +1,12 @@
 <template>
 	<div class="setting">
-		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router  >
+		<div class="nav"><el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router  >
 			<el-menu-item index="/base/school" @click="currentRoute='/base/school'">校园信息</el-menu-item>
 			<el-menu-item index="/base/grade" @click="currentRoute='/base/grade'">年级管理</el-menu-item>
 			<el-menu-item index="/base/clazz" @click="currentRoute='/base/clazz'">班级管理</el-menu-item>
 			<el-menu-item index="/base/course" @click="currentRoute='/base/course'">课程管理</el-menu-item>
 			<el-menu-item index="/base/user" @click="currentRoute='/base/user'">用户管理</el-menu-item>
-		</el-menu>
+		</el-menu></div>
 		<div class="setting-content">
 			<router-view></router-view>
 		</div>
@@ -40,5 +40,8 @@
 	}
 </script>
 <style>
-
+.el-menu--horizontal>.el-menu-item{
+		height: 50px;
+		line-height: 50px;
+	}
 </style>

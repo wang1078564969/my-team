@@ -1,20 +1,3 @@
-import axios from 'axios'
-import qs from 'qs'
-
-// 全局配置
-axios.defaults.headers.post['Content-Type'] 	= 'application/x-www-form-urlencoded';
-axios.defaults.baseURL = 'http://119.23.66.251:9999';
-axios.defaults.withCredentials = true;
-
-
-axios.interceptors.request.use((config) => {
-    if (config.method === 'post') {
-      config.data = qs.stringify(config.data,{arrayFormat: 'repeat' });
-    }
-    return config;
-}, (error) => {
-    return Promise.reject(error);
-});
 /*
 axios.interceptors.response.use(function (response) {
 	if(response.data.status == 500 && response.data.message == '尚未登录，请登录!'){
@@ -24,5 +7,27 @@ axios.interceptors.response.use(function (response) {
   return response;
 });
 */
+import axios from 'axios'
+import qs from 'qs'
+// 全局配置
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL = 'http://47.107.71.18:9999';
+// axios.defaults.baseURL = 'http://127.0.0.1:9999';
+axios.defaults.withCredentials = true;
 
-export default axios;
+export default function (flag) {
+  let instance = axios.create();
+  instance.interceptors.request.use((config) => {
+    if (config.method === 'post') {
+      if (flag && flag == 'array') {
+        config.data = qs.stringify(config.data, { allowDots: true });
+      } else {
+        config.data = qs.stringify(config.data, { arrayFormat: 'repeat' });
+      }
+    }
+    return config;
+  }, (error) => {
+    return Promise.reject(error);
+  });
+  return instance
+};
