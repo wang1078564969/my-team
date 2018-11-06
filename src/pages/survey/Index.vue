@@ -1,6 +1,6 @@
 <template>
 	<div class="setting">
-		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router active-text-color="#ffd04b" >
+		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal" router>
 			<el-menu-item index="/survey/surveyInfo" @click="currentRoute='/survey/surveyInfo'">课调管理</el-menu-item>
 			<el-menu-item index="/survey/surveyMonitor" @click="currentRoute='/survey/surveyMonitor'">课调监控</el-menu-item>
 			<el-menu-item index="/survey/surveyCheck" @click="currentRoute='/survey/surveyCheck'">班级管理</el-menu-item>

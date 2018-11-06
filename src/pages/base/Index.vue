@@ -1,6 +1,6 @@
 <template>
 	<div class="setting">
-		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router active-text-color="#ffd04b" >
+		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router  >
 			<el-menu-item index="/base/school" @click="currentRoute='/base/school'">校园信息</el-menu-item>
 			<el-menu-item index="/base/grade" @click="currentRoute='/base/grade'">年级管理</el-menu-item>
 			<el-menu-item index="/base/clazz" @click="currentRoute='/base/clazz'">班级管理</el-menu-item>

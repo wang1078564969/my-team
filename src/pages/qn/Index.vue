@@ -1,6 +1,6 @@
 <template>
 	<div class="setting">
-		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal"  router active-text-color="#ffd04b">
+		<el-menu :default-active="this.currentRoute" class="el-menu-demo" mode="horizontal" router>
 			<el-menu-item index="/qn/question" @click="currentRoute='/qn/question'">题库管理</el-menu-item>
 			<el-menu-item index="/qn/questionNaire" @click="currentRoute='/qn/questionNaire'">问卷管理</el-menu-item>
 		</el-menu>
