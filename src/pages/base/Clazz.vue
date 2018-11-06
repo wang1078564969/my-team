@@ -53,6 +53,7 @@
 				width="140">
 				<template slot-scope="scope">
 					<el-button type="text">移除</el-button>
+					<el-button type="text">添加</el-button>
 				</template>
 				</el-table-column>
 			</el-table>
