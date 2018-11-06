@@ -108,6 +108,7 @@
 <style>
 	 .el-select .el-input {
     width: 130px;
+	
   }
   .button{
 	  margin:10px;
