@@ -20,14 +20,14 @@
 			//将页面路由信息记录在sessionStorag中
 			currentRoute:{
 				handler: function(){
-      				sessionStorag.setItem("statiscurrentRoute",JSON.stringify(this.currentRoute));
+      				sessionStorage.setItem("basecurrentRoute",JSON.stringify(this.currentRoute));
 				},
 				deep: true
 			}
 		},
 		created(){
 			 //在页面加载时读取sessionStorag里的状态信息
-    		let currentRoute=JSON.parse(sessionStorag.getItem('statiscurrentRoute'));
+    		let currentRoute=JSON.parse(sessionStorage.getItem('basecurrentRoute'));
 			this.currentRoute=currentRoute
 			if(this.currentRoute==null){
 				this.currentRoute='/statistics/surveyList'
