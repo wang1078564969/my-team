@@ -61,7 +61,8 @@
 	</div>
 </template>
 <script>
-  import axios from '@/http/axios'
+import getAxios from '@/http/axios'
+let axios = getAxios();
 	export default {
 		data(){
 			return{
@@ -108,7 +109,6 @@
 <style>
 	 .el-select .el-input {
     width: 130px;
-	
   }
   .button{
 	  margin:10px;

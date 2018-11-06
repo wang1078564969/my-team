@@ -80,7 +80,8 @@
 	</div>
 </template>
 <script>
-	import axios from '@/http/axios'
+import getAxios from '@/http/axios'
+let axios = getAxios();
 	export default {
 		data(){
 			return{
