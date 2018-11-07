@@ -129,7 +129,7 @@
   }
 </script>
 <style>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;
     
@@ -209,9 +209,6 @@
     display: block;
     margin: 5px 5px;
     text-align: right
-  }
-  .center > .left-nav > ul > li.current {
-    background-color: #f0f0f0;
   }
   .center > .content {
     height: 100%;

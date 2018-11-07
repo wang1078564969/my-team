@@ -2,7 +2,7 @@
 	<div class="course">
 		<!-- 按钮区 -->
 		<div class="btns">
-			<el-button size='mini' @click='toAddcourse'>添加</el-button>
+			<el-button size='mini' @click='toAddcourse()'>添加</el-button>
 			<el-button size='mini' @click='batchDelete()'>批量删除</el-button>
 			 <el-input size='mini' 
 			 	v-model="keywords"
@@ -60,7 +60,6 @@
 		  :visible.sync="GoDialog.visible"
 		  width="30%" >
 		  <el-form label-position="left" label-width="80px" :model="GoDialog.form">
-		      {{GoDialog.form}}
 		  	<el-form-item label="课程名称">
 			    <el-input v-model='GoDialog.form.name'></el-input>
 			 </el-form-item>
@@ -73,7 +72,7 @@
 		  </el-form>
 		  <span slot="footer" class="dialog-footer">
 		    <el-button size='mini' @click='toClose'>取 消</el-button>
-		    <el-button type="primary" size='mini' @click='saveOrUpdate'>保 存</el-button>
+		    <el-button type="primary" size='mini' @click='saveOrUpdate()'>保 存</el-button>
 		  </span>
 		</el-dialog>
 		<!-- 模态框 -->
