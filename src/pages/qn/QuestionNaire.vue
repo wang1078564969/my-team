@@ -34,7 +34,7 @@
 				prop="name">
 				</el-table-column>
 				<el-table-column
-				label="描述"
+				label="简介"
 				width="300"
 				prop="description">
 				</el-table-column>
@@ -53,12 +53,12 @@
 		<el-dialog
 			:title="questionlog.title"
 			:visible.sync="questionlog.visible"
-			width="30%">
+			width="40%">
 			<div class="description">{{allquestiondata.description}}</div>
 			<div  v-for="c in allquestiondata.questionVMs" :key="c.id">
 				<div class="question"> &nbsp; &nbsp; &nbsp; &nbsp; {{c.id}} . {{c.name}}</div>
-				<div v-for="o in c.option" :key="o.id">
-					<div class="option">{{o.label}} . {{o.label.name}}</div>
+				<div v-for="o in c.options" :key="o.id">
+					<div class="option">{{o.label}} . {{o.name}}</div>
 				</div>
 			</div>
 			<span slot="footer" class="dialog-footer">
@@ -66,17 +66,17 @@
 			</span>
 		</el-dialog>
 		<!-- 修改与添加 -->
-		<el-dialog
-			:title="this.questionlog2.title"
-			:visible.sync="questionlog2.visible"
-			width="30%">
+		<el-dialog :title="this.questionlog2.title" :visible.sync="questionlog2.visible" width="40%">
 			<el-form label-position="left" label-width="80px" :model="questionlog2.form">
 				<el-form-item label="题目">
 					<el-input v-model='questionlog2.form.name'></el-input>
 				</el-form-item>
-				<el-form-item label="选项" v-for="c in this.questionlog.form.options" :key="c.id">{{this.questionlog.form.options.label}}
-					<el-input v-model='questionlog2.form.options.name'></el-input>
+				<el-form-item label="简介">
+					<el-input v-model='questionlog2.form.description'></el-input>
 				</el-form-item>
+				<!-- <el-form-item label="选项" v-for="c in this.questionlog.form.questionVMs" :key="c.id">
+					<el-input v-model='questionlog2.form.options.name'></el-input>
+				</el-form-item> -->
 			</el-form>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="questionlog2.visible = false">取 消</el-button>
@@ -125,7 +125,9 @@ let axios = getAxios();
 			},
 			//打开修改
 			onupdate(row){
-				this.questionlog2.form=row;
+				this.findquestion(row.id);
+
+				this.questionlog2.form=this.allquestiondata
 				this.questionlog2.title='修改'
 				this.questionlog2.visible=true;
 			},
