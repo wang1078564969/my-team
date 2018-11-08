@@ -10,7 +10,7 @@
 				</el-input> -->
 			</div>
 			<div class="right-button">
-				<el-button type="primary" icon="el-icon-edit" circle></el-button>
+				<el-button type="primary" icon="el-icon-edit" circle @click="onadd()"></el-button>
 				<el-button type="danger" icon="el-icon-delete" circle></el-button>
 			</div>
 		</div>
@@ -74,9 +74,12 @@
 				<el-form-item label="简介">
 					<el-input v-model='questionlog2.form.description'></el-input>
 				</el-form-item>
-				<!-- <el-form-item label="选项" v-for="c in this.questionlog.form.questionVMs" :key="c.id">
-					<el-input v-model='questionlog2.form.options.name'></el-input>
-				</el-form-item> -->
+				<el-popover placement="right" width="400" trigger="click">
+					<el-checkbox-group v-model="checkeds">
+						<el-checkbox  border v-for="c in coursedata" :key="c.id" :label="c.id">{{c.name}}</el-checkbox>
+					</el-checkbox-group>
+					<el-button slot="reference">打开题库</el-button>
+				</el-popover>
 			</el-form>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="questionlog2.visible = false">取 消</el-button>
@@ -107,9 +110,10 @@ let axios = getAxios();
 				//
 				questionlog2:{
 					title:'',
-					form:{},
+					form:{	},
 					visible:false
 				},
+				checkeds:[]
 			}
 		},
 		methods:{
@@ -126,13 +130,17 @@ let axios = getAxios();
 			//打开修改
 			onupdate(row){
 				this.findquestion(row.id);
-
-				this.questionlog2.form=this.allquestiondata
-				this.questionlog2.title='修改'
+				this.questionlog2.form=row;	
+				this.questionlog2.title='修改';
 				this.questionlog2.visible=true;
 			},
 			//打开添加
 			onadd(){
+				this.questionlog2.title='添加';
+				this.questionlog2.form={};
+				this.questionlog2.visible=true;
+			},
+			oncourse(){
 
 			},
 			//修改保存
