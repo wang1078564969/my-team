@@ -74,8 +74,9 @@
 				<el-form-item label="简介">
 					<el-input v-model='questionlog2.form.description'></el-input>
 				</el-form-item>
+				{{checkers}}
 				<el-popover placement="right" width="400" trigger="click">
-					<el-checkbox-group v-model="checkeds">
+					<el-checkbox-group v-model="checkers">
 						<el-checkbox  border v-for="c in coursedata" :key="c.id" :label="c.id">{{c.name}}</el-checkbox>
 					</el-checkbox-group>
 					<el-button slot="reference">打开题库</el-button>
@@ -110,10 +111,10 @@ let axios = getAxios();
 				//
 				questionlog2:{
 					title:'',
-					form:{	},
+					form:{},
 					visible:false
 				},
-				checkeds:[]
+				checkers:[]
 			}
 		},
 		methods:{
@@ -130,7 +131,7 @@ let axios = getAxios();
 			//打开修改
 			onupdate(row){
 				this.findquestion(row.id);
-				this.questionlog2.form=row;	
+				this.questionlog2.form=row;
 				this.questionlog2.title='修改';
 				this.questionlog2.visible=true;
 			},
@@ -140,13 +141,24 @@ let axios = getAxios();
 				this.questionlog2.form={};
 				this.questionlog2.visible=true;
 			},
-			oncourse(){
-
-			},
 			//修改保存
 			updatedate(){
-				console.log(1);
-				
+				this.questionlog2.form.questionIds=this.checkers;
+				axios.post('/questionnaire/saveOrUpdateQuestionnaire',this.questionlog2.form)
+					.then(()=>{
+						this.$notify.success({
+				          	title: '上传成功',
+				          	message: '成功'
+						});
+						this.questionlog2.visible=false;
+				        this.getquestiondata();
+					})
+					.catch(()=>{
+						this.$notify.error({
+				          	title: '上传异常',
+				          	message: '错误'
+				        });
+					})
 			},
 			//单个删除
 			adddelete(row){
@@ -177,6 +189,9 @@ let axios = getAxios();
 				axios.get('/questionnaire/findQuestionnaireVMById?id='+id)
 				.then((result) => {
 					this.allquestiondata=result.data.data;
+					this.checkers = this.allquestiondata.questionVMs.map((item)=>{
+						return item.id
+					});
 				}).catch((err) => {
 					this.$notify.error({
 	          			title: '错误',
